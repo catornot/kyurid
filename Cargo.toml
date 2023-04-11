@@ -9,6 +9,8 @@ edition = "2021"
 rrplug = { git = "https://github.com/catornot/rrplug.git" }
 rodio = "0.17.1"
 once_cell = "*"
+log = "*"
+rand = "0.8.5"
 
 [build-dependencies]
 windres = "0.2.2"

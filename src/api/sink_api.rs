@@ -9,7 +9,15 @@ use crate::{api::sound_utils::get_sound_file, STREAM};
 // note will be reset on each destroy of the client vm
 pub static SINKS: Lazy<Mutex<HashMap<String, Sink>>> = Lazy::new(|| Mutex::new(HashMap::new()));
 
+///! rodio sink api
+///! any errors will produce error that you will have to catch with `try` and `catch`
+///! real
+
 // script_ui print(KYCreateSoundSink())
+
+/// creates a rodio sink and returns a id for it
+/// 
+/// `string function KYCreateSoundSink()`
 #[rrplug::sqfunction(VM=UiClient,ExportName=KYCreateSoundSink)]
 pub fn create_sink() -> String {
     let sink = match Sink::try_new(&STREAM.wait().stream_handle) {
@@ -42,6 +50,10 @@ pub fn create_sink() -> String {
 }
 
 // script_ui try { KYAddSoundToSink( "id here", "cat_or_not.mp_sahel", "catvibe.mp3" ) } catch (err) { printt(err) }
+
+/// appends a sound to the sink
+/// 
+/// `void function KYAddSoundToSink( string id, string mod_name, string sound_name )`
 #[rrplug::sqfunction(VM=UiClient,ExportName=KYAddSoundToSink)]
 pub fn add_sound(id: String, mod_name: String, sound_name: String) {
     let source = match get_sound_file(mod_name, sound_name) {
@@ -64,6 +76,9 @@ pub fn add_sound(id: String, mod_name: String, sound_name: String) {
     sq_return_null!()
 }
 
+/// skips the currently playing sound
+/// 
+/// `void function KYSkipSinkSound( string id )`
 #[rrplug::sqfunction(VM=UiClient,ExportName=KYSkipSinkSound)]
 pub fn skip_sound(id: String) {
     let lock = SINKS.lock().expect("how");
@@ -79,7 +94,11 @@ pub fn skip_sound(id: String) {
     sq_return_null!()
 }
 
+/// speeds up the sounds >:3
+/// 
 /// normal speed is 1.0
+/// 
+/// `void function KYSinkSetSpeed( string id, float speed )`
 #[rrplug::sqfunction(VM=UiClient,ExportName=KYSinkSetSpeed)]
 pub fn set_speed(id: String, speed: f32) {
     let lock = SINKS.lock().expect("how");
@@ -95,6 +114,9 @@ pub fn set_speed(id: String, speed: f32) {
     sq_return_null!();
 }
 
+/// destroys the sink which makes also makes the id invalid
+/// 
+/// `void function KYDestroySink( string id )`
 #[rrplug::sqfunction(VM=UiClient,ExportName=KYDestroySink)]
 pub fn destroy_sink(id: String) {
     let mut lock = SINKS.lock().expect("how");

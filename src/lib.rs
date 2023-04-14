@@ -48,6 +48,10 @@ impl Plugin for NativeAudio {
 
     fn initialize(&mut self, plugin_data: &PluginData) {
         register_api_sq_functions(plugin_data);
+
+        let args: String = std::env::args().skip(1).collect();
+
+        log::info!("args {args}"); // some stuff
     }
 
     fn main(&self) {}

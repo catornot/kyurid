@@ -6,6 +6,14 @@ a plugin that gives the sqvm access to a high level api for audio
 
 any errors produced by io or rodio will raise errors that you will have to catch with `try` and `catch`
 
+to **fetch** sounds this plugin starts from the titanfall 2 folder and looks at 
+
+`/R2Northstar/mods` + mod name + `/sounds` + sound name
+
+this means that currenlty profiles aren't supported and if the mod's folder name changes it wouldn't work too
+
+the mod name issue can probably be solved by using `NSGetCurrentModName` or not I am not sure how it works.
+
 # util funcs
 
 ## KYPlaySoundFile
@@ -24,7 +32,7 @@ void function KYPlaySoundFileTracked( string mod_name, string sound_name )
 ```
 higher overhead, can also fill up the memory since sinks will only be cleaned on client destruction
 
-## KYGetSound
+## KYGetSounds
 ```c
 array<string> function KYGetSounds(string mod_name)
 ```

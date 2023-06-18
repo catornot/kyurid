@@ -30,7 +30,7 @@ pub fn get_sound_file(
 }
 
 // wtf this doesn't work?
-fn validate_user_path(path: &str) -> Result<(), String> {
+fn validate_user_path(path: &str) -> Result<(), &str> {
     if path.contains("..") {
         Err("BRUH, stop trying to break the path")?
     }

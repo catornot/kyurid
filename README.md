@@ -39,7 +39,9 @@ array<string> function KYGetSounds(string mod_name)
 gets all the sounds from a folder
 
 # rodio sink api
-for now only basic stuff ( I am too laszy to add more )
+for now only basic stuff ( I am too lazy to add more )
+
+every sink is destroyed at the end of a `Client` VM even tho you can call the functions on `UI` or `CLIENT` VMs
 
 ## KYCreateSoundSink
 ```c
@@ -66,6 +68,40 @@ void function KYSinkSetSpeed( string id, float speed )
 speeds up the sounds >:3
 
 normal speed is 1.0
+
+## KYSinkSetVolume
+```c
+void function KYSinkSetVolume( string id, float volume )
+```
+changes the volume
+
+normal volume is 1.0
+
+## KYSinkGetVolume
+```c
+`float function KYSinkGetVolume( string id )
+```
+returns the current volume of the sink
+
+## KYSinkGetSpeed
+```c
+float function KYSinkGetSpeed( string id )
+```
+returns the current speed of the sink
+
+## KYSinkSetPause
+```c
+void function KYSinkSetPause( string id, bool paused )
+```
+attempts to pause or play the current sound in the sink
+
+does nothing if it's already in that state
+
+## KYSinkGetPause
+```c
+bool function KYSinkGetPause( string id )
+```
+returns the pause state of the sink
 
 ## KYDestroySink
 ```c

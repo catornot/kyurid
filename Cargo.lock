@@ -329,6 +329,7 @@ version = "0.1.0"
 dependencies = [
  "log",
  "once_cell",
+ "parking_lot",
  "rand",
  "rodio",
  "rrplug",
@@ -687,21 +688,22 @@ dependencies = [
 
 [[package]]
 name = "rrplug"
-version = "2.0.0"
+version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e5c324c2f1b17388ba8939ca8b5ad7f04685980913985ddcf84b5874fda04540"
+checksum = "f225a2b81ad7b50c41d4bbea905fdc04deaa34b151b166bb9dcc2d3911cd4995"
 dependencies = [
  "log",
  "once_cell",
+ "parking_lot",
  "rrplug_proc",
  "thiserror",
 ]
 
 [[package]]
 name = "rrplug_proc"
-version = "2.0.0"
+version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "26446dd47f9472a423826db29c9b273d82010f6bf3520c52fb3ffdd7418dad1b"
+checksum = "c011cfa89344290f4b7dda5e15eb50e5c5f7f3d9994a5f21ce3b2c930ed2e665"
 dependencies = [
  "quote",
  "syn 2.0.15",

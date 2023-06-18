@@ -77,7 +77,6 @@ pub fn play_sound_tracked(mod_name: String, sound_name: String) {
 
     if SINKS
         .lock()
-        .expect("how")
         .insert(random_key, sink)
         .is_some()
     {

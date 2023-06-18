@@ -29,6 +29,8 @@ impl std::fmt::Debug for NativeAudio {
 }
 
 impl Plugin for NativeAudio {
+    type SaveType = squirrel::NoSave;
+
     fn new() -> Self {
         let (_stream, stream_handle) = match OutputStream::try_default() {
             Ok(s) => s,
@@ -58,7 +60,7 @@ impl Plugin for NativeAudio {
 
     fn on_sqvm_destroyed(&self, context: ScriptVmType) {
         if let ScriptVmType::Client = context {
-            crate::api::sink_api::SINKS.lock().expect("how").clear()
+            crate::api::sink_api::SINKS.lock().clear()
         }
     }
 }

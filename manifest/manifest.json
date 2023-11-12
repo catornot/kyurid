@@ -2,8 +2,8 @@
 	"name": "kyurid",
 	"displayname": "KYURIDSYS",
 	"description": "gives the sqvm access to a high level api for audio",
-	"api_version": "2",
-	"version": "1.0",
+	"api_version": "3",
+	"version": "1.1",
 	"run_on_server": true,
 	"run_on_client": false
 }

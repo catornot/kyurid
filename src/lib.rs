@@ -1,7 +1,6 @@
 use once_cell::sync::OnceCell;
 use rodio::{OutputStream, OutputStreamHandle};
 use rrplug::prelude::*;
-use rrplug::wrappers::northstar::{PluginData, ScriptVmType};
 
 use api::register_api_sq_functions;
 
@@ -20,18 +19,8 @@ pub static STREAM: OnceCell<Stream> = OnceCell::new();
 
 pub struct NativeAudio;
 
-impl std::fmt::Debug for NativeAudio {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("NativeAudio")
-            .field("sink", &"sink")
-            .finish()
-    }
-}
-
 impl Plugin for NativeAudio {
-    type SaveType = squirrel::NoSave;
-
-    fn new() -> Self {
+    fn new(plugin_data: &PluginData) -> Self {
         let (_stream, stream_handle) = match OutputStream::try_default() {
             Ok(s) => s,
             Err(_) => {
@@ -45,18 +34,14 @@ impl Plugin for NativeAudio {
             stream_handle,
         });
 
-        Self {}
-    }
-
-    fn initialize(&mut self, plugin_data: &PluginData) {
         register_api_sq_functions(plugin_data);
 
-        let args: String = std::env::args().skip(1).collect();
+        // let args: String = std::env::args().skip(1).collect();
 
-        log::info!("args {args}"); // some stuff
+        // log::info!("args {args}"); // some stuff
+
+        Self {}
     }
-
-    fn main(&self) {}
 
     fn on_sqvm_destroyed(&self, context: ScriptVmType) {
         if let ScriptVmType::Client = context {
